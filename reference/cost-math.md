@@ -1,6 +1,6 @@
 # Estimating a team run before you make it
 
-You do not need precision. You need to know whether you are about to spend
+You don't need precision. You need to know whether you're about to spend
 cents or dollars, and whether fan-out is worth it.
 
 ## The back-of-envelope
@@ -8,7 +8,7 @@ cents or dollars, and whether fan-out is worth it.
 For each role, estimate: **number of calls x output tokens per call x output
 price**. Output dominates; input is usually a rounding error once prompt
 caching is on (caching cuts input cost by up to 90%, and the Batch API is a
-flat 50% off if latency does not matter).
+flat 50% off if latency doesn't matter).
 
 Worked example, the rate-limiter task from the skill:
 
@@ -28,7 +28,7 @@ an Opus session, fanned out.
 | 5 agents | Opus 5 | 5 | 6K | 30K | $0.75 |
 | plus fan-out overhead | Opus 5 | - | 2.6x multiplier | 78K | $1.95 |
 
-Same task, roughly 5x the bill, and measured slower. That is the entire
+Same task, roughly 5x the bill, and measured slower. That's the entire
 argument for this skill.
 
 ## The fan-out multiplier, measured
@@ -49,7 +49,7 @@ Wall clock, same study:
 | Opus | 4m 15s | 8m 00s | 4m 45s |
 | Fable 5 | 2m 15s | 7m 00s | 17m 00s |
 
-Fan-out did not win on time in a single configuration tested. Treat "parallel
+Fan-out didn't win on time in a single configuration tested. Treat "parallel
 is faster" as a claim to verify on your own workload, not a given.
 
 ## When fan-out does pay
@@ -57,7 +57,7 @@ is faster" as a claim to verify on your own workload, not a given.
 The three-question gate from the skill, restated as the economics:
 
 1. **Genuinely independent work.** Shared state means agents redo each other's
-   reads. That is where the multiplier comes from.
+   reads. That's where the multiplier comes from.
 2. **Units large enough to amortize setup.** Each subagent pays a context
    setup cost. If the unit of work is smaller than that cost, fan-out is pure
    overhead.
@@ -67,7 +67,7 @@ The three-question gate from the skill, restated as the economics:
 
 The clean case: N independent files each needing the same mechanical
 transformation, where no file imports another. That genuinely parallelizes.
-"Add a feature that touches routing, auth, and tests" does not.
+"Add a feature that touches routing, auth, and tests" doesn't.
 
 ## Instrumenting for real
 
@@ -79,5 +79,5 @@ Estimates get you to a decision. Measurement gets you a policy.
 - `claudexor` for quota-aware routing across agents
 - Claude Code's own `/cost` for the current session
 
-Instrument first, then optimize. Optimizing a routing policy you have not
+Instrument first, then optimize. Optimizing a routing policy you haven't
 measured is how people end up with elaborate configs that save nothing.

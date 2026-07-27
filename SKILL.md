@@ -1,12 +1,12 @@
 ---
 name: agent-team
-description: Assemble a cost-correct multi-agent team for a coding or research goal. Assigns each role the cheapest Claude model that can actually do it, pins the model so subagents never inherit an expensive one, and gates fan-out behind a three-question test so you do not pay a 5x token tax for work that was never parallel. Trigger on "build an agent team", "multi-agent", "agent swarm", "orchestrate agents", "which model should I use", "subagents for", "split this across agents", "my Claude Code bill is too high".
+description: Assemble a cost-correct multi-agent team for a coding or research goal. Assigns each role the cheapest Claude model that can actually do it, pins the model so subagents never inherit an expensive one, and gates fan-out behind a three-question test so you don't pay a 5x token tax for work that was never parallel. Trigger on "build an agent team", "multi-agent", "agent swarm", "orchestrate agents", "which model should I use", "subagents for", "split this across agents", "my Claude Code bill is too high".
 ---
 
 # Agent Team
 
 Most multi-agent advice tells you to spawn more agents. Measured data says
-that is usually how you triple your bill and get slower.
+that's usually how you triple your bill and get slower.
 
 This skill does three things:
 
@@ -16,7 +16,7 @@ This skill does three things:
 
 ## Step 1: Name the roles, not the tasks
 
-Do not ask "how many agents?" Ask "what distinct jobs exist here?" There are
+Don't ask "how many agents?" Ask "what distinct jobs exist here?" There are
 only four, and most goals need two or three of them.
 
 | Role | Job | Model | Why |
@@ -26,17 +26,17 @@ only four, and most goals need two or three of them.
 | **Planner** | Decompose an ambiguous goal. Architecture, tradeoffs, sequencing. Writes the spec the Builder follows. | `opus` | Ambiguity is where model tier actually shows up. |
 | **Adversary** | Try to break what was just built. Find the bug, the edge case, the wrong assumption. | `opus`, or `fable` for the last pass before shipping | Adversarial review is the highest-value expensive call you can make. It's cheaper than the incident. |
 
-Assign one agent per role. Do not create `frontend-builder`,
-`backend-builder`, and `test-builder`. That is three copies of the same
+Assign one agent per role. Don't create `frontend-builder`,
+`backend-builder`, and `test-builder`. That's three copies of the same
 role paying three setup costs. One Builder, three sequential tasks.
 
 ## Step 2: Pin the model in every agent file
 
-This is the step everyone skips and it is the expensive one.
+This is the step everyone skips and it's the expensive one.
 
 Since Claude Code 2.1.198 (1 July 2026) subagents **inherit the session
 model**. The built-in `Explore` agent used to always run Haiku; it now
-inherits, capped at Opus. If you are driving an Opus session, your file-search
+inherits, capped at Opus. If you're driving an Opus session, your file-search
 agent is an Opus agent.
 
 Every agent file gets an explicit `model:`. No exceptions, no `inherit`.
@@ -80,7 +80,7 @@ Before you run N agents in parallel, all three must be true:
 Any "no" means run it sequentially. Sequential is cheaper and, measured, often
 faster.
 
-**The numbers, so this is not a vibe.** Instrumented fan-out against a
+**The numbers, so this isn't a vibe.** Instrumented fan-out against a
 sequential baseline on the same task:
 
 | Setup | Metered tokens | Wall clock |
@@ -103,8 +103,8 @@ wrong one wastes money.
 | What you observed | Dial | Move |
 |---|---|---|
 | It had all the context, clearly tried, still wrong | **model** | Go up one tier. This is a knowledge gap. |
-| It skipped files, didn't run tests, did not check its work | **effort** | Raise effort, same model. This is a thoroughness gap. |
-| Task is mechanical and it did fine | **model** | Go *down* a tier. You are overpaying. |
+| It skipped files, didn't run tests, didn't check its work | **effort** | Raise effort, same model. This is a thoroughness gap. |
+| Task is mechanical and it did fine | **model** | Go *down* a tier. You're overpaying. |
 | Long, many-step, holds a lot of state | **model** | Fable pulls furthest ahead here. |
 
 Raising effort on a knowledge gap makes a confident wrong answer more
@@ -114,16 +114,16 @@ skipped test.
 ## Step 5: Verify, then report cost
 
 End every team run with the Adversary, not with the Builder. A team that
-reports "done" without an adversarial pass has not verified anything, it has
+reports "done" without an adversarial pass hasn't verified anything, it has
 just finished.
 
 Then state what the run cost in model terms: which roles ran, on which
-models, how many calls. If most calls were not Scout and Builder calls, the
+models, how many calls. If most calls weren't Scout and Builder calls, the
 team is mis-routed.
 
 ## Assembling a team: worked example
 
-Goal: "Add rate limiting to our API and make sure it does not break auth."
+Goal: "Add rate limiting to our API and make sure it doesn't break auth."
 
 Wrong shape (five agents, all inheriting Opus):
 `api-agent`, `auth-agent`, `test-agent`, `docs-agent`, `review-agent`,
@@ -156,7 +156,7 @@ independence test.
 
 - Creating an agent per file or per feature. Roles, not tasks.
 - Leaving `model:` off an agent file. It will inherit the expensive one.
-- Fanning out to "go faster" without checking independence. Measured, it is
+- Fanning out to "go faster" without checking independence. Measured, it's
   often slower.
 - Skipping the Adversary because the Builder said it was done.
 - Using Fable for volume work. Fable is for the hardest single call in the

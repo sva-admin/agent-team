@@ -10,7 +10,7 @@ A Claude Code skill that routes each agent role to the cheapest model that can
 actually do the job, pins it so nothing inherits, and gates fan-out behind a
 test instead of a vibe.
 
-[Install](#install-30-seconds) · [The routing table](#the-routing-table) · [Why fan-out is not free](#why-fan-out-is-not-free) · [SV Academy](https://sv-academy.org)
+[Install](#install-30-seconds) · [The routing table](#the-routing-table) · [Why fan-out isn't free](#why-fan-out-is-not-free) · [SV Academy](https://sv-academy.org)
 
 </div>
 
@@ -26,7 +26,7 @@ So if you drive an Opus session, your `grep` runs at Opus prices. Your test
 runner runs at Opus prices. A fan-out that used to spin up cheap explorers now
 spins up copies of the most expensive model you have.
 
-Most people have not noticed because the bill is one number.
+Most people haven't noticed because the bill is one number.
 
 ## Install (30 seconds)
 
@@ -77,7 +77,7 @@ Two dials, and people pull the wrong one constantly.
 Raising effort on a knowledge gap buys you a more thorough wrong answer.
 Upgrading the model on a thoroughness gap pays more for the same skipped test.
 
-## Why fan-out is not free
+## Why fan-out isn't free
 
 Everyone posts the diagram where one smart model fans out to N cheap workers
 and everything gets faster. Here is what happens when someone instruments it
@@ -150,7 +150,7 @@ on cheap models. No fan-out, because step 3 fails the independence test.
 
 ## Measure it yourself
 
-Do not take our table on faith, and do not take the fan-out diagram on faith
+Don't take our table on faith, and don't take the fan-out diagram on faith
 either. Instrument your own workload:
 
 - `/cost` in Claude Code for the current session
@@ -162,7 +162,7 @@ either. Instrument your own workload:
 
 ## Sources
 
-The numbers here are not ours. Grounded in the last 30 days:
+The numbers here aren't ours. Grounded in the last 30 days:
 
 - Anthropic on [choosing a model and effort level](https://claude.com/blog/claude-model-and-effort-level-in-claude-code)
 - Systima's instrumented [subagent fan-out study](https://systima.ai/blog/subagent-tax) (SHA-256 hash-chained audit trail)
