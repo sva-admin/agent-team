@@ -24,7 +24,7 @@ only four, and most goals need two or three of them.
 | **Scout** | Find things. Read, grep, glob, locate, summarize. Never writes. | `haiku` | Search is pattern-matching, not judgment. Paying Opus rates to run `grep` is the single most common overspend. |
 | **Builder** | Write code to a spec that already exists. Mechanical edits, migrations, tests, boilerplate. | `sonnet` | Sonnet is strong at focused execution. If the spec is clear, a bigger model adds cost, not correctness. |
 | **Planner** | Decompose an ambiguous goal. Architecture, tradeoffs, sequencing. Writes the spec the Builder follows. | `opus` | Ambiguity is where model tier actually shows up. |
-| **Adversary** | Try to break what was just built. Find the bug, the edge case, the wrong assumption. | `opus`, or `fable` for the last pass before shipping | Adversarial review is the highest-value expensive call you can make. It is cheaper than the incident. |
+| **Adversary** | Try to break what was just built. Find the bug, the edge case, the wrong assumption. | `opus`, or `fable` for the last pass before shipping | Adversarial review is the highest-value expensive call you can make. It's cheaper than the incident. |
 
 Assign one agent per role. Do not create `frontend-builder`,
 `backend-builder`, and `test-builder`. That is three copies of the same
@@ -92,7 +92,7 @@ sequential baseline on the same task:
 | 2 subagents (Fable) | 5.9x | 7m 00s |
 | 5 subagents (Fable) | 4.7x | 17m 00s |
 
-Fan-out never won on time in that study. It is a tool for genuinely parallel
+Fan-out never won on time in that study. It's a tool for genuinely parallel
 surfaces, not a default.
 
 ## Step 4: Route escalations by failure mode, not by task size
@@ -103,7 +103,7 @@ wrong one wastes money.
 | What you observed | Dial | Move |
 |---|---|---|
 | It had all the context, clearly tried, still wrong | **model** | Go up one tier. This is a knowledge gap. |
-| It skipped files, did not run tests, did not check its work | **effort** | Raise effort, same model. This is a thoroughness gap. |
+| It skipped files, didn't run tests, did not check its work | **effort** | Raise effort, same model. This is a thoroughness gap. |
 | Task is mechanical and it did fine | **model** | Go *down* a tier. You are overpaying. |
 | Long, many-step, holds a lot of state | **model** | Fable pulls furthest ahead here. |
 

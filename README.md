@@ -38,7 +38,7 @@ cp .claude/skills/agent-team/agents/*.md .claude/agents/
 
 No git required, and nothing but the skill lands in your project.
 
-That is it. Ask Claude to "build an agent team for X" and it uses the routing
+That's it. Ask Claude to "build an agent team for X" and it uses the routing
 table. The four agent files in `.claude/agents/` work standalone too, with no
 skill involved.
 
@@ -60,7 +60,7 @@ Prices per million tokens, 27 July 2026: Haiku 4.5 `$1/$5` · Sonnet 5 `$3/$15`
 (intro `$2/$10` through 31 Aug) · Opus 5 `$5/$25` · Fable 5 `$10/$50`.
 
 **The diagnostic:** if your Opus and Fable output tokens outweigh your Haiku
-and Sonnet output tokens, the team is mis-routed. That is the only metric that
+and Sonnet output tokens, the team is mis-routed. That's the only metric that
 matters.
 
 ## Escalate by failure mode, not by task size
@@ -70,8 +70,8 @@ Two dials, and people pull the wrong one constantly.
 | What you observed | Dial | Move |
 |---|---|---|
 | Had full context, clearly tried, still wrong | **model** | up one tier (knowledge gap) |
-| Skipped files, did not run tests | **effort** | raise effort, same model (thoroughness gap) |
-| Mechanical task, done fine | **model** | down one tier, you are overpaying |
+| Skipped files, didn't run tests | **effort** | raise effort, same model (thoroughness gap) |
+| Mechanical task, done fine | **model** | down one tier, you're overpaying |
 | Long, many-step, lots of state | **model** | Fable pulls furthest ahead |
 
 Raising effort on a knowledge gap buys you a more thorough wrong answer.
@@ -92,10 +92,10 @@ against a sequential baseline on the same task:
 | 2 subagents (Fable 5) | 5.9x | 7m 00s |
 | 5 subagents (Fable 5) | 4.7x | 17m 00s |
 
-Fan-out did not win on time in a single configuration tested. It cost 2.6x to
+Fan-out didn't win on time in a single configuration tested. It cost 2.6x to
 5.9x the tokens.
 
-Fan-out is a real tool. It is a tool for **genuinely independent work on a
+Fan-out is a real tool. It's a tool for **genuinely independent work on a
 large surface**, not a default posture. So this skill gates it:
 
 1. **Genuinely independent?** No shared state, no ordering, no agent needs
@@ -122,7 +122,7 @@ agent-team/
     └── cost-math.md            estimate a run before you make it
 ```
 
-Every agent file has `model:` pinned. That is the point.
+Every agent file has `model:` pinned. That's the point.
 
 ## Worked example
 
