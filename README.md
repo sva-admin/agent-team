@@ -28,6 +28,17 @@ spins up copies of the most expensive model you have.
 
 Most people haven't noticed because the bill is one number.
 
+## Easiest install: just ask
+
+Paste this to Claude Code, Codex, or Cursor:
+
+> **Install the agent-team skill from github.com/sva-admin/agent-team**
+
+Your agent reads this file and does the rest. Nothing to type into a terminal.
+
+<details>
+<summary>If you would rather run it yourself</summary>
+
 ## Install (30 seconds)
 
 This is an [Agent Skills](https://agentpatterns.ai/standards/agent-skills-standard/)
@@ -49,6 +60,8 @@ cp .agents/skills/agent-team/agents/*.md .claude/agents/
 ```
 
 No git required, and nothing but the skill lands in your project.
+
+</details>
 
 ### What is portable here, and what is not
 
