@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://sv-academy.org/sv_logo_dark_1024.png" width="72" alt="SV Academy">
+<img src="sv-logo.png" width="72" alt="SV Academy">
 
 # agent-team
 
@@ -31,11 +31,12 @@ Most people have not noticed because the bill is one number.
 ## Install (30 seconds)
 
 ```bash
-git clone https://github.com/sva-admin/agent-team.git
-mkdir -p .claude/skills .claude/agents
-cp -r agent-team .claude/skills/agent-team
-cp agent-team/agents/*.md .claude/agents/
+mkdir -p .claude/skills/agent-team .claude/agents
+curl -sL https://github.com/sva-admin/agent-team/archive/main.tar.gz | tar xz --strip-components=1 -C .claude/skills/agent-team
+cp .claude/skills/agent-team/agents/*.md .claude/agents/
 ```
+
+No git required, and nothing but the skill lands in your project.
 
 That is it. Ask Claude to "build an agent team for X" and it uses the routing
 table. The four agent files in `.claude/agents/` work standalone too, with no
