@@ -95,6 +95,40 @@ sequential baseline on the same task:
 Fan-out never won on time in that study. It's a tool for genuinely parallel
 surfaces, not a default.
 
+## Step 3b: Decide whether to try the cheap model first
+
+Provider-agnostic. Works for any tiered pricing, not just Claude.
+
+Trying a cheaper model first is a bet: succeed and you keep the difference, fail
+and you paid for both. The arithmetic is one line.
+
+```
+price ratio       = cheap output price / expensive output price
+fraction you save = hit rate  -  price ratio
+```
+
+The savings and the break-even are the same equation. You save exactly
+`hit rate minus price ratio`, which is positive precisely when the bet is worth
+taking.
+
+Claude's published prices, July 2026:
+
+| Try first | Backed by | Price ratio | Save at a 77% hit rate |
+|---|---|---|---|
+| Sonnet 5 | Fable 5 | 30% | **47%** |
+| Haiku 4.5 | Sonnet 5 | 33% | 44% |
+| Opus 5 | Fable 5 | 50% | 27% |
+| Sonnet 5 | Opus 5 | 60% | 17% |
+
+Plain-English version, which is what you should actually remember:
+
+> **Only try the cheap model first when the backup costs a lot more. If the
+> backup is only slightly more expensive, just start with the better one.**
+
+This assumes you can detect the cheap model's failures. If bad output slips
+through unchecked you are not saving money, you are shipping bugs. Run the
+Adversary.
+
 ## Step 4: Route escalations by failure mode, not by task size
 
 When an agent gets it wrong, there are two different dials and picking the

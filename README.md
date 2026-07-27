@@ -30,20 +30,36 @@ Most people haven't noticed because the bill is one number.
 
 ## Install (30 seconds)
 
+This is an [Agent Skills](https://agentpatterns.ai/standards/agent-skills-standard/)
+skill. The canonical location is `.agents/skills/`, which Codex, Cursor, VS Code
+and ~40 other agents read directly:
+
 ```bash
-mkdir -p .claude/skills/agent-team .claude/agents
-curl -sL https://github.com/sva-admin/agent-team/archive/main.tar.gz | tar xz --strip-components=1 -C .claude/skills/agent-team
-cp .claude/skills/agent-team/agents/*.md .claude/agents/
+mkdir -p .agents/skills/agent-team
+curl -sL https://github.com/sva-admin/agent-team/archive/main.tar.gz | tar xz --strip-components=1 -C .agents/skills/agent-team
+```
+
+Claude Code reads `.claude/skills/`, so symlink it. This is what the ecosystem
+already does, no duplication:
+
+```bash
+mkdir -p .claude/skills .claude/agents
+ln -sfn ../../.agents/skills/agent-team .claude/skills/agent-team
+cp .agents/skills/agent-team/agents/*.md .claude/agents/
 ```
 
 No git required, and nothing but the skill lands in your project.
 
-That's it. Ask Claude to "build an agent team for X" and it uses the routing
-table. The four agent files in `.claude/agents/` work standalone too, with no
-skill involved.
+### What is portable here, and what is not
 
-To take back the built-in Explore agent, `agents/scout.md` includes a drop-in
-override. Rename it to `Explore` and yours wins.
+Being straight about it, because "just move the folder" would be misleading:
+
+| | Portable? |
+|---|---|
+| `SKILL.md` and everything in `reference/` | **Yes.** Plain markdown, any compliant agent reads it. |
+| The break-even rule | **Yes, fully provider-agnostic.** See below. It works for any tiered pricing. |
+| `agents/*.md` frontmatter | **Partly.** `name` and `description` are standard; `model:` and `tools:` are runtime extensions. Compliant agents ignore unknown keys rather than failing. |
+| The price table and the inheritance bug | **No.** Those are Anthropic and Claude Code specifics. That is the point of the skill, not an oversight. |
 
 ## The routing table
 
@@ -76,6 +92,53 @@ Two dials, and people pull the wrong one constantly.
 
 Raising effort on a knowledge gap buys you a more thorough wrong answer.
 Upgrading the model on a thoroughness gap pays more for the same skipped test.
+
+## The rule, without the brand names
+
+This part has nothing to do with Claude. Any provider with tiered pricing gives
+you the same decision, so here it is in general form.
+
+Trying a cheaper model first is a bet. If it succeeds you keep the difference.
+If it fails you paid for both. So:
+
+```
+price ratio        = cheap output price / expensive output price
+break-even         = hit rate must exceed the price ratio
+fraction you save  = hit rate  -  price ratio
+```
+
+**That last line is the whole thing.** The savings and the break-even are the
+same equation: you save exactly `hit rate minus price ratio`, which is positive
+precisely when the bet is worth taking. Nothing else to compute.
+
+Fill in your own provider:
+
+| | Your numbers |
+|---|---|
+| Cheap model, output price | `$______ / Mtok` |
+| Expensive model, output price | `$______ / Mtok` |
+| Price ratio (cheap / expensive) | `______ %` |
+| Your cheap model's hit rate | `______ %` |
+| **Fraction you save** | **hit rate minus price ratio** |
+
+Worked with Claude's published prices, July 2026. Sonnet is `$15/Mtok` out and
+Fable is `$50/Mtok` out, so the price ratio is 30%. Sonnet scored 77% solo on
+SWE-bench Pro; if your hit rate on your own work is similar:
+
+```
+77%  -  30%  =  you pay 47% less than always using Fable
+```
+
+The same arithmetic kills a bad idea too. Sonnet backed by **Opus** is a price
+ratio of 60% (`15/25`), so at a 77% hit rate you save only 17%, and below a 60%
+hit rate you lose money. Plain English version of all of it:
+
+> **Only try the cheap model first when the backup costs a lot more. If the
+> backup is only slightly more expensive, just start with the better one.**
+
+One caveat that matters: this assumes you can actually detect the cheap model's
+failures. If bad output slips through unchecked, you are not saving money, you
+are shipping bugs. That is what `agents/adversary.md` is for.
 
 ## Why fan-out isn't free
 
