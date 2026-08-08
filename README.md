@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="sv-logo.png" width="72" alt="SV Academy">
+<img src="https://raw.githubusercontent.com/sva-admin/claude-skills/main/assets/sv-academy-512.png" width="96" alt="SV Academy">
 
 # agent-team
 
