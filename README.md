@@ -259,3 +259,5 @@ If this saved you money, the follow is the thank-you.
 MIT licensed. Take it, fork it, ship it.
 
 </div>
+
+SV Academy is the education brand of [Silicon Valley Innovation](https://svinnovation.com), a Bangkok software and AI company that can build this for your business.
